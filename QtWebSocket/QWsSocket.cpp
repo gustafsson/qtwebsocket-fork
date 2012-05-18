@@ -1,5 +1,7 @@
 #include "QWsSocket.h"
 
+#include <QHostAddress>
+
 int QWsSocket::maxBytesPerFrame = 1400;
 
 QWsSocket::QWsSocket( QTcpSocket * socket, QObject * parent, quint8 protVers ) :
@@ -10,6 +12,11 @@ QWsSocket::QWsSocket( QTcpSocket * socket, QObject * parent, quint8 protVers ) :
 
 	//setSocketState( QAbstractSocket::UnconnectedState );
 	setSocketState( socket->state() );
+    setLocalPort(socket->localPort());
+    setLocalAddress(socket->localAddress());
+    setPeerPort(socket->peerPort());
+    setPeerAddress(socket->peerAddress());
+    setPeerName(socket->peerName());
 
 	connect( tcpSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()) );
 	connect( tcpSocket, SIGNAL(disconnected()), this, SLOT(tcpSocketDisconnected()) );
