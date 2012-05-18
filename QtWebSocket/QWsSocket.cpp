@@ -299,7 +299,7 @@ QList<QByteArray> QWsSocket::composeFrames( QByteArray byteArray, bool asBinary,
 
 	QList<QByteArray> framesList;
 
-	QByteArray maskingKey = generateMaskingKey();
+    QByteArray maskingKey;// = generateMaskingKey();
 
 	int nbFrames = byteArray.size() / maxFrameBytes + 1;
 
