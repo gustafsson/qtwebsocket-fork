@@ -197,7 +197,7 @@ void QWsServer::dataReceived()
 	disconnect(clientSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
 	// Send handshake answer
-	clientSocket->write( answer.toAscii() );
+    clientSocket->write( answer.toLatin1() );
 	clientSocket->flush();
 
 	// TEMPORARY CODE FOR LINUX COMPATIBILITY
@@ -333,7 +333,7 @@ QString QWsServer::computeAcceptV1( QString key1, QString key2, QString key3 )
 
 	QString concat = serializeInt( num1 ) + serializeInt( num2 ) + key3;
 
-	QByteArray md5 = QCryptographicHash::hash( concat.toAscii(), QCryptographicHash::Md5 );
+    QByteArray md5 = QCryptographicHash::hash( concat.toLatin1(), QCryptographicHash::Md5 );
   
 	return QString( md5 );
 }
@@ -344,13 +344,13 @@ QString QWsServer::serializeInt( quint32 number, quint8 nbBytes )
 	quint8 currentNbBytes = 0;
 	while (number > 0 && currentNbBytes < nbBytes)
 	{  
-		bin.prepend( QChar::fromAscii(number) );
+        bin.prepend( QChar::fromLatin1(number) );
 		number = number >> 8;
 		currentNbBytes++;
 	}
 	while (currentNbBytes < nbBytes)
 	{
-		bin.prepend( QChar::fromAscii(0) );
+        bin.prepend( QChar::fromLatin1(0) );
 		currentNbBytes++;
     }
 	return bin;

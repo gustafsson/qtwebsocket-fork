@@ -197,7 +197,7 @@ qint64 QWsSocket::write ( const QString & string, int maxFrameBytes )
 {
 	if ( protocolVersion == 0 )
 	{
-		return QWsSocket::write( string.toAscii(), maxFrameBytes );
+        return QWsSocket::write( string.toLatin1(), maxFrameBytes );
 	}
 
 	if ( maxFrameBytes == 0 )
